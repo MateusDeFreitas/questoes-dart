@@ -27,12 +27,23 @@ class Home extends StatefulWidget {
 class HomeState extends State<Home>  {
 
   final perguntas = [
-    'Qual a sua cor favorita?',
-    'Qual o seu animal favorito?',
-    'Qual é o seu time?',
+    {
+      'pergunta' : 'Qual a sua cor favorita?',
+      'respostas': ['rosa','verde','amarelo','azul','vermelho','Cor de burro quando foge'],
+    },
+
+    {
+      'pergunta' : 'Qual o seu animal favorito?',
+      'respostas': ['Gato','Cão','Ave','Porco','Ornitorrinco'],
+    },
+
+    {
+      'pergunta' : 'Qual é o seu time?',
+      'respostas': ['Palmeiras','Corinthians','São Paulo','Santos','Arranca Toco F.C.'],
+    },
   ];
 
-  var indicePergunta = 0;
+  var indicePergunta = 2;
 
   void responder() {
     if (indicePergunta < perguntas.length - 1) {
@@ -56,12 +67,13 @@ class HomeState extends State<Home>  {
         child: Column(
           children: [
             Text(
-              perguntas[indicePergunta], 
-              style: TextStyle(fontSize: 40)
+              perguntas[indicePergunta]['pergunta'].toString(), 
+              style: TextStyle(fontSize: 25)
             ),
-            Botoes(resp: responder),
-            Botoes(resp: responder),
-            Botoes(resp: responder),
+            SizedBox(height: 20,), 
+            ...((perguntas[indicePergunta]['respostas'] as List<String>)
+              .map((textoBotao) => Botoes(resp: responder, txt: textoBotao))
+              .toList()),
           ],
         ),
       ),
