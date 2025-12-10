@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import './dados.dart';
 import './lista_perguntas.dart';
-//import './resposta.dart';
+import './resultado.dart';
 
 
 void main() {
@@ -56,13 +56,13 @@ class HomeState extends State<Home>  {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Parisotto',
+          'Mateus Freitas',
           style: TextStyle(fontSize: 30)
-        ), // Text
+        ),
         centerTitle: true,
         backgroundColor: Colors.amber,
         toolbarHeight: 80,
-      ), // AppBar
+      ),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: temPergunta
@@ -70,9 +70,9 @@ class HomeState extends State<Home>  {
               indicePergunta: indicePergunta,
               perguntas: dados,
               responder: responder,
-            ) // ListaPerguntas
-          : null //Resultado(respostas, reiniciar),
-      ), // Padding
-    ); // Scaffold
+            )
+          : Resultado(respostas, reiniciar),
+      ),
+    );
   }
 }
