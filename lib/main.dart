@@ -32,24 +32,34 @@ class HomeState extends State<Home>  {
   final dados = perguntasRespostas;
   List respostas = [];
   var indicePergunta = 0;
+  var totalPontos = 0; 
 
-  void responder(String r) {
+  @override
+  void initState() {
+    super.initState();
+    perguntasRespostas.shuffle();   
+  }
+
+  void responder(String r, int ponto) {
     String p = dados[indicePergunta].pergunta;
-    respostas.add({'pergunta': p, 'resposta': r});
-    indicePergunta++;
+    respostas.add({'pergunta': p, 'resposta': r, 'ponto': ponto});
+    totalPontos += ponto;          
+    indicePergunta++;               
     setState(() {});
-    }
+  }
 
-    void reiniciar() {
-      setState(() {
-        indicePergunta = 0;
-        respostas = [];
-      });
-    }
+  void reiniciar() {
+    setState(() {
+      indicePergunta = 0;           
+      totalPontos = 0;             
+      respostas = [];
+      perguntasRespostas.shuffle();
+    });
+  }
 
-    bool get temPergunta {
-      return indicePergunta < dados.length;
-    }
+  bool get temPergunta {
+    return indicePergunta < dados.length;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +81,7 @@ class HomeState extends State<Home>  {
               perguntas: dados,
               responder: responder,
             )
-          : Resultado(respostas, reiniciar),
+          : Resultado(respostas, reiniciar, totalPontos),
       ),
     );
   }
